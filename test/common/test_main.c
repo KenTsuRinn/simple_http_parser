@@ -15,7 +15,6 @@ int main() {
     testSuite = CU_add_suite("JojoTestSuite", NULL, NULL);
 
     /* Test関数 */
-    CU_add_test(testSuite, "test_maxi", test_maxi);
     CU_add_test(testSuite, "test_add_entry", test_add_entry);
 
     CU_basic_set_mode(CU_BRM_VERBOSE);
