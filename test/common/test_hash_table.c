@@ -1,32 +1,16 @@
 //
 // Created by kennetsu on 1/8/21.
 //
-#include "catch.hpp"
-#include <string.h>
-#include <catch2/catch.hpp>
+#include <CUnit/CUnit.h>
 
-SCENARIO("Power off tests", "[power_button]")
+int maxi(int i1, int i2)
 {
-    GIVEN("the power is off")
-    {
-        power_button_initialize(POWER_OFF);
+    return (i1 > i2) ? i1 : i2;
+}
 
-        WHEN("nothing happens")
-        {
-            THEN("the power is still off")
-            {
-                REQUIRE(power_button_getPowerState() == POWER_OFF);
-            }
-        }
-
-        WHEN("the power button is momentarily pressed")
-        {
-            power_button_pressMomentary();
-
-            THEN("the power turns on")
-            {
-                REQUIRE(power_button_getPowerState() == POWER_ON);
-            }
-        }
-    }
+void test_maxi(void)
+{
+    CU_ASSERT(maxi(0,2) == 2);
+    CU_ASSERT(maxi(0,-2) == 0);
+    CU_ASSERT(maxi(2,2) == 2);
 }

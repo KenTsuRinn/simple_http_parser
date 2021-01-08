@@ -2,8 +2,17 @@ cmake_minimum_required(VERSION 3.16)
 project(simple_http_parser C)
 
 set(CMAKE_C_STANDARD 11)
-include(${CMAKE_BINARY_DIR}/conan_paths.cmake)
-find_package(Catch2 REQUIRED)
+set(CMAKE_COMPILER_IS_GNUCC TRUE)
+
+# Dependencies
+# If dependencies are managed with conan, we set the CMake module path (where
+# CMake looks for dependencies) to the current build folder.
+if (EXISTS ${CMAKE_CURRENT_BINARY_DIR}/conaninfo.txt)
+    set(CMAKE_MODULE_PATH ${CMAKE_CURRENT_BINARY_DIR})
+endif ()
+
+find_package(CUnit REQUIRED)
+find_package(CURL REQUIRED)
 
 set(COMMON_SRC
         src/common/hash_table.c
@@ -15,10 +24,21 @@ target_include_directories(
         inc
 )
 
-add_executable(common_tests test/common/test_hash_table.c)
-target_link_libraries(common_tests PRIVATE Catch2::Catch2)
+add_executable(common_tests test/common/test_hash_table.c test/common/test_main.c)
+target_include_directories(
+        common
+        PUBLIC
+        inc
+)
+target_link_libraries(common_tests
+        PRIVATE
+        CUnit::CUnit
+        CURL::libcurl
+        common)
 
 add_executable(simple_http_parser main.c)
 target_link_libraries(simple_http_parser
         PRIVATE
+        CUnit::CUnit
+        CURL::libcurl
         common)
