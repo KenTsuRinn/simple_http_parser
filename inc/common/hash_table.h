@@ -16,7 +16,7 @@ extern entry *init_hash();
 
 extern void add_entry_to_hash(const char *key, void *value);
 
-extern void search_entry_by_key(const char *key);
+extern void* search_entry_by_key(const char *key);
 
 extern void delete_entry_in_hash(const char *key);
 
