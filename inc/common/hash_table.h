@@ -14,7 +14,7 @@ typedef struct {
 
 extern entry *init_hash();
 
-extern void add_entry_to_hash(const char *key, void *value);
+extern void add_entry_to_hash(const char *key, const void *value);
 
 extern void* search_entry_by_key(const char *key);
 

@@ -26,11 +26,18 @@ static int linear_probing_hash(const char *key) {
 
     int collid = 1;
     int prob_index = index;
-    while (_hash_table[prob_index].key != "\0") {
+    while (_hash_table[prob_index].key != "\0" && strcmp(_hash_table[prob_index].key, key) != 0) {
         prob_index = (index + collid) % HASH_SIZE;
         collid++;
     }
     return prob_index;
+}
+
+static char *copy_string(const char *str) {
+    int len = strlen(str);
+    char *str_cpy = malloc(sizeof(char) * len);
+    strcpy(str_cpy, str);
+    return str_cpy;
 }
 
 entry *init_hash() {
@@ -41,9 +48,10 @@ entry *init_hash() {
     return _hash_table;
 }
 
-void add_entry_to_hash(const char *key, void *value) {
+void add_entry_to_hash(const char *key, const void *value) {
     assert(strlen(key) > 1);
     int index = linear_probing_hash(key);
+    _hash_table[index].key = copy_string(key);
     _hash_table[index].value = value;
 }
 
