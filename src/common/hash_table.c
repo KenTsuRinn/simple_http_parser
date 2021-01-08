@@ -33,11 +33,10 @@ static int linear_probing_hash(const char *key) {
     return prob_index;
 }
 
-static char *copy_string(const char *str) {
-    int len = strlen(str);
-    char *str_cpy = malloc(sizeof(char) * len);
-    strcpy(str_cpy, str);
-    return str_cpy;
+static void *clone(const void *value, size_t size) {
+    void *v_ptr = malloc(size);
+    memcpy(v_ptr, value, size);
+    return v_ptr;
 }
 
 entry *init_hash() {
@@ -48,15 +47,34 @@ entry *init_hash() {
     return _hash_table;
 }
 
-void add_entry_to_hash(const char *key, const void *value) {
+void add_entry_to_hash(const char *key, size_t size, const void *value) {
     assert(strlen(key) > 1);
     int index = linear_probing_hash(key);
-    _hash_table[index].key = copy_string(key);
-    _hash_table[index].value = value;
+    _hash_table[index].key = clone(key, sizeof(char) * strlen(key));
+    _hash_table[index].value = clone(value, size);
 }
 
 void *search_entry_by_key(const char *key) {
     assert(strlen(key) > 1);
     int index = linear_probing_hash(key);
     return _hash_table[index].value;
+}
+
+void delete_entry_in_hash(const char *key) {
+    assert(strlen(key) > 1);
+    int index = linear_probing_hash(key);
+    entry entry = _hash_table[index];
+    if (entry.key != NULL)
+        free(entry.key);
+    if (entry.value != NULL)
+        free(entry.value);
+}
+
+void update_entry_in_hash(const char *key, size_t size, void *value) {
+    assert(strlen(key) > 1);
+    int index = linear_probing_hash(key);
+    entry entry = _hash_table[index];
+    assert(entry.key != NULL);
+    assert(strcmp(entry.key, key) == 0);
+    entry.value = clone(value, size);
 }
