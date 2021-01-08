@@ -5,6 +5,7 @@
 #include <common/hash_table.h>
 #include <malloc.h>
 #include <string.h>
+#include <assert.h>
 
 static entry *_hash_table;
 
@@ -41,11 +42,13 @@ entry *init_hash() {
 }
 
 void add_entry_to_hash(const char *key, void *value) {
+    assert(strlen(key) > 1);
     int index = linear_probing_hash(key);
     _hash_table[index].value = value;
 }
 
 void *search_entry_by_key(const char *key) {
+    assert(strlen(key) > 1);
     int index = linear_probing_hash(key);
     return _hash_table[index].value;
 }
