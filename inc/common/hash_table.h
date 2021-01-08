@@ -22,7 +22,7 @@ extern void *search_entry_by_key(const char *key);
 
 extern void delete_entry_in_hash(const char *key);
 
-extern void update_entry_in_hash(const char *key, size_t size, void *value);
+extern void update_entry_in_hash(const char *key, size_t size, const void *value);
 
 extern void destroy_hash();
 

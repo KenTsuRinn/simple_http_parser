@@ -63,7 +63,8 @@ void destroy_hash() {
 void add_entry_to_hash(const char *key, size_t size, const void *value) {
     assert(strlen(key) > 1);
     int index = linear_probing_hash(key);
-    _hash_table[index].key = clone(key, sizeof(char) * strlen(key));
+    int len = strlen(key);
+    _hash_table[index].key = clone(key, sizeof(char) * len);
     _hash_table[index].value = clone(value, size);
 }
 
@@ -83,11 +84,12 @@ void delete_entry_in_hash(const char *key) {
         free(entry.value);
 }
 
-void update_entry_in_hash(const char *key, size_t size, void *value) {
-//    assert(strlen(key) > 1);
+void update_entry_in_hash(const char *key, size_t size, const void *value) {
+    assert(strlen(key) > 1);
     int index = linear_probing_hash(key);
     entry entry = _hash_table[index];
-//    assert(entry.key != NULL);
-//    assert(strcmp(entry.key, key) == 0);
-    entry.value = clone(value, size);
+    assert(entry.key != NULL);
+    assert(strcmp(entry.key, key) == 0);
+    free(entry.value);
+    strcpy(entry.value, clone(value, size));
 }
