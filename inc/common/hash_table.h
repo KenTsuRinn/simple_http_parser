@@ -24,4 +24,6 @@ extern void delete_entry_in_hash(const char *key);
 
 extern void update_entry_in_hash(const char *key, size_t size, void *value);
 
+extern void destroy_hash();
+
 #endif //SIMPLE_HTTP_PARSER_HASH_TABLE_H

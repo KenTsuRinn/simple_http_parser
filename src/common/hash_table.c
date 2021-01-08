@@ -7,7 +7,7 @@
 #include <string.h>
 #include <assert.h>
 
-static entry *_hash_table;
+static entry *_hash_table = NULL;
 
 static unsigned long hash(unsigned char *str) {
     unsigned long hash = 5381;
@@ -40,11 +40,24 @@ static void *clone(const void *value, size_t size) {
 }
 
 entry *init_hash() {
+    if (_hash_table != NULL)
+        return _hash_table;
     _hash_table = malloc(HASH_SIZE * sizeof(entry));
     for (int i = 0; i < HASH_SIZE; ++i) {
         _hash_table[i].key = "\0";
     }
     return _hash_table;
+}
+
+void destroy_hash() {
+    for (int i = 0; i < HASH_SIZE; ++i) {
+        entry entry = _hash_table[i];
+        if (entry.key != NULL)
+            free(entry.key);
+        if (entry.value != NULL)
+            free(entry.value);
+    }
+    free(_hash_table);
 }
 
 void add_entry_to_hash(const char *key, size_t size, const void *value) {
@@ -71,10 +84,10 @@ void delete_entry_in_hash(const char *key) {
 }
 
 void update_entry_in_hash(const char *key, size_t size, void *value) {
-    assert(strlen(key) > 1);
+//    assert(strlen(key) > 1);
     int index = linear_probing_hash(key);
     entry entry = _hash_table[index];
-    assert(entry.key != NULL);
-    assert(strcmp(entry.key, key) == 0);
+//    assert(entry.key != NULL);
+//    assert(strcmp(entry.key, key) == 0);
     entry.value = clone(value, size);
 }

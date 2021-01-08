@@ -6,34 +6,39 @@
 
 void test_add_entry() {
     init_hash();
-    char *key = "test";
+    char *key = "test_add_entry";
     char *value = "i am fuck hash i";
     add_entry_to_hash(key, sizeof(char) * strlen(value), value);
 
-    char *result = search_entry_by_key("test");
+    char *result = search_entry_by_key(key);
     CU_ASSERT(strcmp(result, "i am fuck hash i") == 0)
+    destroy_hash();
 }
 
 void test_delete_entry() {
     init_hash();
-    char *key = "test";
+    char *key = "test_delete_entry";
     char *value = "i am fuck hash i";
     add_entry_to_hash(key, sizeof(char) * strlen(value), value);
 
-    delete_entry_in_hash("test");
-    char *result = search_entry_by_key("test");
+    delete_entry_in_hash(key);
+    char *result = search_entry_by_key(key);
     CU_ASSERT(result == NULL)
+    destroy_hash();
+
 }
 
 
 void test_update_entry() {
     init_hash();
-    char *key = "test";
+    char *key = "test_update_entry";
     char *value = "i am fuck hash i";
     add_entry_to_hash(key, sizeof(char) * strlen(value), value);
 
-    char *update_value = "wang kaikai wo zai zheli ~~";
-    update_entry_in_hash("test", sizeof(char) * strlen(update_value), update_value);
-    char *result = search_entry_by_key("test");
+    char *update_value = "wang kaikai wo zai zheli";
+    update_entry_in_hash(key, sizeof(char) * strlen(update_value), update_value);
+    char *result = search_entry_by_key(key);
     CU_ASSERT(strcmp(result, update_value) == 0)
+    destroy_hash();
+
 }
