@@ -16,6 +16,7 @@ find_package(CURL REQUIRED)
 
 set(COMMON_SRC
         src/common/hash_table.c
+        src/common/clone.c
         )
 add_library(common STATIC ${COMMON_SRC})
 target_include_directories(
@@ -24,7 +25,7 @@ target_include_directories(
         inc
 )
 
-add_executable(common_tests test/common/test_hash_table.c test/common/test_main.c)
+add_executable(common_tests test/common/test_hash_table.c test/common/test_main.c test/common/test_clone.c)
 target_include_directories(
         common
         PUBLIC
