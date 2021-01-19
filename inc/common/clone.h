@@ -7,5 +7,6 @@
 
 #include <stddef.h>
 
-void* clone(void* ptr, size_t size);
+void *clone(char *ptr, size_t size);
+
 #endif //SIMPLE_HTTP_PARSER_CLONE_H
