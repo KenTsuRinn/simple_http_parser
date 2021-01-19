@@ -6,10 +6,9 @@
 #include <stdlib.h>
 #include <test/test_clone.h>
 
-//TODO: 字符串克隆失败
 void test_clone_str() {
     char *src = "learn memory model";
-    size_t len = strlen(src);
+    size_t len = strlen(src) + 1;
     char *dest = clone(src, len);
     CU_ASSERT(strcmp(src, dest) == 0)
     free(dest);
