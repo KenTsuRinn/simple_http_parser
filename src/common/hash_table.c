@@ -20,7 +20,8 @@ static unsigned long hash(unsigned char *str) {
 }
 
 static int linear_probing_hash(const char *key) {
-    int index = hash(key) % HASH_SIZE;
+    // https://stackoverflow.com/a/6670853/6617295
+    int index = hash(key) & (HASH_SIZE - 1);
     if (_hash_table[index].key == "\0")
         return index;
 
