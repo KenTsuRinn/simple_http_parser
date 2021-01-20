@@ -4,6 +4,14 @@ project(simple_http_parser C)
 set(CMAKE_C_STANDARD 11)
 set(CMAKE_COMPILER_IS_GNUCC TRUE)
 
+
+if (CMAKE_COMPILER_IS_GNUCC)
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -Wextra")
+endif ()
+if (MSVC)
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /W4")
+endif ()
+
 # Dependencies
 # If dependencies are managed with conan, we set the CMake module path (where
 # CMake looks for dependencies) to the current build folder.

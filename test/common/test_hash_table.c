@@ -36,7 +36,6 @@ void test_update_entry() {
     add_entry_to_hash(key, sizeof(char) * strlen(value), value);
 
     char *update_value = "wai kai kai wo zai zhe li";
-    int len = strlen(update_value);
     update_entry_in_hash(key, sizeof(char) * strlen(update_value), update_value);
     char *result = search_entry_by_key(key);
     CU_ASSERT(strcmp(result, update_value) == 0)

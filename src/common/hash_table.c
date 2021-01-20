@@ -21,7 +21,7 @@ static unsigned long hash(unsigned char *str) {
 
 static int linear_probing_hash(const char *key) {
     // https://stackoverflow.com/a/6670853/6617295
-    int index = hash(key) & (HASH_SIZE - 1);
+    unsigned long index = hash(key) & (HASH_SIZE - 1);
     if (_hash_table[index].key == "\0")
         return index;
 
@@ -64,7 +64,7 @@ void destroy_hash() {
 void add_entry_to_hash(const char *key, size_t size, const void *value) {
     assert(strlen(key) > 1);
     int index = linear_probing_hash(key);
-    int len = strlen(key);
+    unsigned long long len = strlen(key);
     _hash_table[index].key = clone(key, sizeof(char) * len);
     _hash_table[index].value = clone(value, size);
 }
