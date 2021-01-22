@@ -46,18 +46,11 @@ void test_ptr_view(void) {
         ptr_literal[char_size] = viewer_iter;
 
     }
-    fputs("nHexNumber\n", stdout);
 
     uint32_t nHexNumber = (ptr_literal[4] << 24) | (ptr_literal[5] << 16) | (ptr_literal[6] << 8) | (ptr_literal[7]);
 
     char *test = (char *) nHexNumber;
-    char * copy = malloc(strlen(test)+1);
-    fputs("copy", stdout);
-
-    snprintf(copy,'%s\0', test);
-    fputs(copy, stdout);
-    CU_ASSERT(strcmp(str, copy) == 0)
-    free(copy);
+    CU_ASSERT(strcmp(str, test) == 0)
 }
 
 
