@@ -6,6 +6,7 @@
 #include <test/test_hash_table.h>
 #include <CUnit/Basic.h>
 #include <test/test_clone.h>
+#include <test/test_utils.h>
 
 int main() {
     CU_pSuite testSuite;
@@ -22,6 +23,8 @@ int main() {
     CU_add_test(testSuite, "test_clone_struct", test_clone_struct);
     CU_add_test(testSuite, "test_clone_long", test_clone_long);
     CU_add_test(testSuite, "test_clone_str", test_clone_str);
+    CU_add_test(testSuite, "test_bits_view", test_bits_view);
+    CU_add_test(testSuite, "test_ptr_view", test_ptr_view);
 
     CU_basic_set_mode(CU_BRM_VERBOSE);
     CU_basic_run_tests();

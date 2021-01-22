@@ -4,7 +4,6 @@ project(simple_http_parser C)
 set(CMAKE_C_STANDARD 11)
 set(CMAKE_COMPILER_IS_GNUCC TRUE)
 
-
 if (CMAKE_COMPILER_IS_GNUCC)
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -Wextra")
 endif ()
@@ -25,7 +24,7 @@ find_package(CURL REQUIRED)
 set(COMMON_SRC
         src/common/hash_table.c
         src/common/clone.c
-        )
+        src/common/utils.c)
 add_library(common STATIC ${COMMON_SRC})
 target_include_directories(
         common
@@ -33,7 +32,7 @@ target_include_directories(
         inc
 )
 
-add_executable(common_tests test/common/test_hash_table.c test/common/test_main.c test/common/test_clone.c)
+add_executable(common_tests test/common/test_hash_table.c test/common/test_main.c test/common/test_clone.c test/common/test_utils.c)
 target_include_directories(
         common
         PUBLIC
