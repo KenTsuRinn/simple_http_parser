@@ -45,9 +45,6 @@ void test_ptr_view(void) {
         paquet |= (uint64_t) ptr_literal[i];
     }
     unsigned char *s = (unsigned char *) paquet;
-    int cs = strlen(s);
-    int sa = strlen(str);
-    int temp = strcmp(str, s);
     CU_ASSERT(strcmp(str, s) == 0)
 }
 
