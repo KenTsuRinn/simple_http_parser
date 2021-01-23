@@ -5,9 +5,13 @@
 #ifndef SIMPLE_HTTP_PARSER_UTILS_H
 #define SIMPLE_HTTP_PARSER_UTILS_H
 
+#include <stddef.h>
+#include <argp.h>
+#include <stdlib.h>
+
 union PtrView {
-    char *c_ptr;
-    char view_bytes[sizeof(char *)]
+    unsigned char *c_ptr;
+    unsigned char view_bytes[sizeof(unsigned char *)]
 };
 
 
@@ -37,6 +41,5 @@ union Bits {
 #endif
     } bits;
 };
-
 
 #endif //SIMPLE_HTTP_PARSER_UTILS_H
